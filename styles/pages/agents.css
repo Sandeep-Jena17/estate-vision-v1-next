@@ -1,0 +1,69 @@
+/* EstateVision — agent profile and agents list styles */
+
+/* ══════════════════════════════════════════════════════════════
+   AGENT PROFILE PAGE
+══════════════════════════════════════════════════════════════ */
+
+/* Cover image */
+.agent-cover {
+  height:    180px;
+  overflow:  hidden;
+  position:  relative;
+}
+@media (min-width: 768px) { .agent-cover { height: 240px; } }
+.agent-cover img  { width: 100%; height: 100%; object-fit: cover; object-position: center 40%; display: block; }
+.agent-cover::after {
+  content:  '';
+  position: absolute;
+  inset:    0;
+  background: linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.5) 100%);
+}
+
+/* Agent card (overlapping cover) */
+.agent-hero-card {
+  background:    var(--surface);
+  border-radius: var(--radius-lg);
+  margin-top:    -48px;
+  padding:       24px;
+  box-shadow:    var(--shadow-xl);
+  border:        1px solid var(--border);
+  position:      relative;
+  z-index:       2;
+}
+@media (min-width: 640px) {
+  .agent-hero-card { margin-top: -60px; padding: 28px 32px; }
+}
+
+/* Agent stat pills */
+.agent-stats {
+  display:    flex;
+  gap:        20px;
+  flex-wrap:  wrap;
+  background: var(--bg2);
+  border-radius: var(--radius-md);
+  padding:    16px 20px;
+}
+.agent-stat-item { text-align: center; }
+.agent-stat-value{ font-family: var(--font-display); font-size: clamp(16px,2.5vw,20px); font-weight: 700; color: var(--text); }
+.agent-stat-label{ font-size: 10px; color: var(--muted); margin-top: 2px; white-space: nowrap; }
+
+/* Review card */
+.review-card {
+  background:    var(--surface);
+  border:        1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding:       18px 22px;
+  transition:    box-shadow var(--transition);
+}
+.review-card:hover { box-shadow: var(--shadow-md); }
+
+/* Rating bar */
+.rating-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.rating-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.rating-bar-fill  { height: 100%; background: var(--gold); border-radius: 3px; }
+
+[data-theme="dark"] .review-card,
+[data-theme="dark"] .agent-hero-card {
+  background:   var(--surface);
+  border-color: var(--border);
+}

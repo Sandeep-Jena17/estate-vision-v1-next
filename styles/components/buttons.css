@@ -1,0 +1,92 @@
+/* EstateVision — .btn and all .btn-* variants */
+
+/* ══════════════════════════════════════════════════════════════
+   BUTTONS — 44px minimum touch target
+══════════════════════════════════════════════════════════════ */
+
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             8px;
+  min-height:      44px;    /* ← touch-friendly minimum */
+  padding:         10px 20px;
+  border:          1.5px solid transparent;
+  border-radius:   var(--radius-sm);
+  font-weight:     600;
+  font-size:       14px;
+  font-family:     var(--font-body);
+  white-space:     nowrap;
+  transition:      all var(--transition);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:disabled {
+  opacity:   .5;
+  cursor:    not-allowed;
+  transform: none !important;
+}
+
+.btn-primary {
+  background:   var(--slate);
+  color:        white;
+  border-color: var(--slate);
+}
+.btn-primary:hover {
+  background:   var(--slate2);
+  box-shadow:   var(--shadow-md);
+  transform:    translateY(-1px);
+}
+
+[data-theme="dark"] .btn-primary {
+  background:   white;
+  color:        var(--slate);
+  border-color: white;
+}
+
+.btn-gold {
+  background:   var(--gold);
+  color:        white;
+  border-color: var(--gold);
+}
+.btn-gold:hover {
+  background: var(--gold2);
+  box-shadow: 0 4px 20px rgba(184,134,11,.35);
+  transform:  translateY(-1px);
+}
+
+.btn-outline {
+  background:   var(--surface);
+  color:        var(--text);
+  border-color: var(--border2);
+}
+.btn-outline:hover {
+  border-color: var(--slate);
+  background:   var(--slate);
+  color:        white;
+}
+
+[data-theme="dark"] .btn-outline {
+  background:   transparent;
+  color:        var(--text);
+  border-color: var(--border2);
+}
+[data-theme="dark"] .btn-outline:hover {
+  background:   var(--border2);
+  border-color: var(--border2);
+  color:        var(--text);
+}
+
+.btn-ghost {
+  background:   transparent;
+  color:        var(--text);
+  border-color: transparent;
+}
+.btn-ghost:hover { background: var(--border); }
+
+.btn-sm   { min-height: 36px; padding: 6px 14px; font-size: 12px; }
+.btn-lg   { min-height: 52px; padding: 14px 28px; font-size: 15px; border-radius: var(--radius-md); }
+.btn-xl   { min-height: 56px; padding: 16px 36px; font-size: 16px; border-radius: var(--radius-md); }
+.btn-full { width: 100%; }
+.btn-icon { min-height: 44px; width: 44px; padding: 0; border-radius: 50%; }

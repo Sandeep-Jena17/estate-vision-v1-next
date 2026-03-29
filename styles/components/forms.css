@@ -1,0 +1,72 @@
+/* EstateVision — .field, .label, .input, .select, .textarea */
+
+/* ══════════════════════════════════════════════════════════════
+   FORM ELEMENTS — touch friendly
+══════════════════════════════════════════════════════════════ */
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label {
+  font-size:      11px;
+  font-weight:    600;
+  color:          var(--muted);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  display:        block;
+}
+
+.input, .select {
+  width:         100%;
+  height:        44px;   /* touch friendly */
+  padding:       0 14px;
+  border:        1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background:    var(--surface);
+  color:         var(--text);
+  font-size:     14px;
+  outline:       none;
+  transition:    border-color var(--transition), box-shadow var(--transition);
+  -webkit-appearance: none;
+}
+
+.input:focus, .select:focus {
+  border-color: var(--gold);
+  box-shadow:   0 0 0 3px rgba(184,134,11,.12);
+}
+
+.textarea {
+  width:         100%;
+  padding:       12px 14px;
+  min-height:    96px;
+  border:        1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background:    var(--surface);
+  color:         var(--text);
+  font-size:     14px;
+  outline:       none;
+  resize:        vertical;
+  transition:    border-color var(--transition);
+}
+.textarea:focus { border-color: var(--gold); }
+
+[data-theme="dark"] .input,
+[data-theme="dark"] .select,
+[data-theme="dark"] .textarea {
+  background:   var(--surface2);
+  border-color: var(--border);
+  color:        var(--text);
+}
+
+/* Sort dropdown (listings page) */
+.sort-select {
+  height:      40px;
+  padding:     0 12px;
+  border:      1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background:  var(--surface);
+  font-size:   13px;
+  color:       var(--text);
+  outline:     none;
+  cursor:      pointer;
+  font-family: var(--font-body);
+}

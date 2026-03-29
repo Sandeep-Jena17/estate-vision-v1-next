@@ -1,0 +1,31 @@
+/* EstateVision — .toast */
+
+/* ══════════════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════════════ */
+
+.toast {
+  position:   fixed;
+  bottom:     24px;
+  left:       50%;
+  transform:  translateX(-50%);
+  background: var(--slate);
+  color:      white;
+  padding:    12px 24px;
+  border-radius: 32px;
+  font-size:  14px;
+  font-weight:500;
+  z-index:    3000;
+  box-shadow: var(--shadow-lg);
+  display:    flex;
+  align-items:center;
+  gap:        8px;
+  animation:  toastIn .3s ease;
+  white-space:nowrap;
+  max-width:  calc(100vw - 32px);  /* never overflow on mobile */
+}
+
+[data-theme="dark"] .toast {
+  background: var(--surface2);
+  border:     1px solid var(--border2);
+}

@@ -1,0 +1,51 @@
+/* EstateVision — .booking-panel, .booking-header, .booking-price, .booking-body, .booking-footer, .booking-option, .booking-trust */
+
+/* ══════════════════════════════════════════════════════════════
+   BOOKING PANEL
+══════════════════════════════════════════════════════════════ */
+
+.booking-panel {
+  position:      sticky;
+  top:           calc(var(--nav-h) + 20px);
+  background:    var(--surface);
+  border-radius: var(--radius-lg);
+  border:        1px solid var(--border);
+  overflow:      hidden;
+  box-shadow:    var(--shadow-md);
+}
+/* On mobile, booking panel is not sticky — it just stacks */
+@media (max-width: 1023px) {
+  .booking-panel { position: relative; top: 0; }
+}
+.booking-header { padding: 20px 24px; background: var(--slate); color: white; }
+.booking-price  {
+  font-family: var(--font-display);
+  font-size:   clamp(22px, 3vw, 28px);
+  font-weight: 700;
+  color:       white;
+}
+.booking-price span { font-size: 14px; font-weight: 400; opacity: .7; }
+.booking-body   { padding: 20px 24px; }
+.booking-footer { padding: 14px 24px; background: var(--bg); border-top: 1px solid var(--border); }
+
+.booking-option {
+  padding:       12px;
+  border:        1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  cursor:        pointer;
+  transition:    all var(--transition);
+  text-align:    center;
+}
+.booking-option:hover   { border-color: var(--gold); }
+.booking-option.selected{ border-color: var(--gold); background: var(--gold-lt); }
+.booking-option .opt-icon  { font-size: 20px; margin-bottom: 4px; }
+.booking-option .opt-title { font-size: 12px; font-weight: 600; color: var(--text); }
+.booking-option .opt-sub   { font-size: 11px; color: var(--muted); }
+
+[data-theme="dark"] .booking-header {
+  background: #0f1117;
+}
+
+[data-theme="dark"] .booking-footer {
+  background: var(--surface2);
+}

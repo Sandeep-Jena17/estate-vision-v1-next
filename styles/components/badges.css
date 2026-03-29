@@ -1,0 +1,48 @@
+/* EstateVision — .badge and all badge variants */
+
+/* ══════════════════════════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════════════════════════ */
+
+.badge {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           4px;
+  padding:       3px 10px;
+  border-radius: 20px;
+  font-size:     11px;
+  font-weight:   600;
+  letter-spacing:.03em;
+  white-space:   nowrap;
+  border:        1px solid transparent;
+}
+
+.badge-premium  { background: linear-gradient(135deg, #b8860b, #d4a017); color: white; }
+.badge-new      { background: #fefce8; color: #d97706; border-color: #fde68a; }
+.badge-hot      { background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+.badge-verified { background: #f0fdf4; color: #059669; border-color: #a7f3d0; }
+.badge-sold     { background: #f3f4f6; color: #6b7280; border-color: #e5e7eb; }
+.badge-rera     { background: #eff6ff; color: #2563eb; border-color: #bfdbfe; }
+.badge-gold     { background: var(--gold-lt); color: var(--gold); border-color: #e8c97a; }
+
+[data-theme="dark"] .badge-new      { background: #422006; color: #fbbf24; border-color: #78350f; }
+[data-theme="dark"] .badge-hot      { background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }
+[data-theme="dark"] .badge-verified { background: #052e16; color: #86efac; border-color: #14532d; }
+[data-theme="dark"] .badge-sold     { background: #1f2937; color: #9ca3af; border-color: #374151; }
+[data-theme="dark"] .badge-rera     { background: #1e3a5f; color: #93c5fd; border-color: #1d4ed8; }
+[data-theme="dark"] .badge-gold     { background: #422006; color: var(--gold2); border-color: #78350f; }
+
+/* ══════════════════════════════════════════════════════════════
+   BOOKING STATUS BADGES
+══════════════════════════════════════════════════════════════ */
+
+.booking-status          { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid; }
+.booking-status-confirmed{ background: #ecfdf5; color: #059669; border-color: #a7f3d0; }
+.booking-status-pending  { background: #fefce8; color: #d97706; border-color: #fde68a; }
+.booking-status-completed{ background: #f3f4f6; color: #6b7280; border-color: #e5e7eb; }
+.booking-status-cancelled{ background: #fef2f2; color: #dc2626; border-color: #fecaca; }
+
+[data-theme="dark"] .booking-status-confirmed{ background: #052e16; color: #86efac; border-color: #14532d; }
+[data-theme="dark"] .booking-status-pending  { background: #422006; color: #fbbf24; border-color: #78350f; }
+[data-theme="dark"] .booking-status-completed{ background: #1f2937; color: #9ca3af; border-color: #374151; }
+[data-theme="dark"] .booking-status-cancelled{ background: #450a0a; color: #fca5a5; border-color: #7f1d1d; }

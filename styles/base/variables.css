@@ -1,0 +1,109 @@
+/* EstateVision — CSS custom properties + dark theme vars */
+
+/* ── GOOGLE FONTS ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+/* ══════════════════════════════════════════════════════════════
+   THEME VARIABLES — Light (default) + Dark
+══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Brand Colours ── */
+  --gold:       #b8860b;
+  --gold2:      #d4a017;
+  --gold-lt:    #f5e6c0;
+  --gold-dark:  #8a6508;
+
+  /* ── Light Theme (default) ── */
+  --bg:         #faf8f4;
+  --bg2:        #f0ebe2;
+  --surface:    #ffffff;
+  --surface2:   #faf8f4;
+  --cream:      #faf8f4;
+  --white:      #ffffff;
+  --slate:      #1a1f2e;
+  --slate2:     #2d3348;
+  --muted:      #6b7280;
+  --border:     #e8e0d4;
+  --border2:    #d4c9b8;
+  --text:       #1a1f2e;
+  --text2:      #374151;
+  --green:      #059669;
+  --red:        #dc2626;
+  --blue:       #2563eb;
+
+  /* ── Shadows ── */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,.08);
+  --shadow-md:  0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,.14);
+  --shadow-xl:  0 24px 60px rgba(0,0,0,.18);
+
+  /* ── Border Radius ── */
+  --radius-sm:  6px;
+  --radius-md:  12px;
+  --radius-lg:  20px;
+  --radius-xl:  28px;
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Outfit', system-ui, sans-serif;
+
+  /* ── Transitions ── */
+  --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── Nav Height (changes at breakpoints) ── */
+  --nav-h: 56px;
+
+  /* ── Container padding ── */
+  --px: 16px;
+}
+
+/* ── Tablet ── */
+@media (min-width: 640px) {
+  :root {
+    --nav-h: 60px;
+    --px:    20px;
+  }
+}
+
+/* ── Desktop ── */
+@media (min-width: 768px) {
+  :root {
+    --nav-h: 68px;
+    --px:    24px;
+  }
+}
+
+/* ── Wide ── */
+@media (min-width: 1280px) {
+  :root { --px: 40px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DARK THEME
+   Usage: <html data-theme="dark"> or <body data-theme="dark">
+   Toggle in React: document.documentElement.setAttribute('data-theme','dark')
+══════════════════════════════════════════════════════════════ */
+
+[data-theme="dark"] {
+  --bg:       #0f1117;
+  --bg2:      #161b27;
+  --surface:  #1a1f2e;
+  --surface2: #222840;
+  --cream:    #0f1117;
+  --white:    #1a1f2e;
+  --slate:    #f1f5f9;
+  --slate2:   #e2e8f0;
+  --muted:    #94a3b8;
+  --border:   #2d3348;
+  --border2:  #3d4568;
+  --text:     #f1f5f9;
+  --text2:    #cbd5e1;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,.5);
+  --shadow-xl: 0 24px 60px rgba(0,0,0,.6);
+
+  color-scheme: dark;
+}

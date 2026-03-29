@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base */
+@import '../styles/base/variables.css';
+@import '../styles/base/reset.css';
+@import '../styles/base/animations.css';
+
+/* Layout */
+@import '../styles/layout/app-shell.css';
+@import '../styles/layout/grid.css';
+@import '../styles/layout/header.css';
+@import '../styles/layout/footer.css';
+
+/* Components */
+@import '../styles/components/buttons.css';
+@import '../styles/components/forms.css';
+@import '../styles/components/badges.css';
+@import '../styles/components/cards.css';
+@import '../styles/components/gallery.css';
+@import '../styles/components/booking.css';
+@import '../styles/components/modal.css';
+@import '../styles/components/toast.css';
+@import '../styles/components/ui.css';
+
+/* Utilities */
+@import '../styles/utilities/utilities.css';
+
+/* Pages */
+@import '../styles/pages/auth.css';
+@import '../styles/pages/home.css';
+@import '../styles/pages/listings.css';
+@import '../styles/pages/property-details.css';
+@import '../styles/pages/agents.css';
+@import '../styles/pages/dashboard.css';
+@import '../styles/pages/projects.css';
+
+/* Admin & Agent Panel */
+@import '../styles/admin.css';

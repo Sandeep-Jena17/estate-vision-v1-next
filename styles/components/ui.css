@@ -1,0 +1,401 @@
+/* EstateVision — panels, tabs, filter chips, breadcrumb, skeleton, theme-toggle, like-btn, listings-list, pagination, avatars, empty-state */
+
+/* ══════════════════════════════════════════════════════════════
+   PANELS
+══════════════════════════════════════════════════════════════ */
+
+.panel {
+  background:    var(--surface);
+  border-radius: var(--radius-md);
+  border:        1px solid var(--border);
+  padding:       16px;
+  box-shadow:    var(--shadow-sm);
+  transition:    box-shadow var(--transition);
+}
+@media (min-width: 768px) {
+  .panel { padding: 24px; }
+}
+.panel:hover { box-shadow: var(--shadow-md); }
+
+.panel-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  margin-bottom:   16px;
+  padding-bottom:  14px;
+  border-bottom:   1px solid var(--border);
+  flex-wrap:       wrap;
+  gap:             10px;
+}
+.panel-title    { font-family: var(--font-display); font-size: clamp(16px,2.5vw,20px); font-weight: 700; color: var(--text); }
+.panel-subtitle { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+
+[data-theme="dark"] .panel {
+  background:   var(--surface);
+  border-color: var(--border);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TABS
+══════════════════════════════════════════════════════════════ */
+
+.tabs-container {
+  display:       flex;
+  gap:           0;
+  border-bottom: 2px solid var(--border);
+  margin-bottom: 24px;
+  overflow-x:    auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.tabs-container::-webkit-scrollbar { display: none; }
+
+.tab-button {
+  padding:       10px 16px;
+  background:    none;
+  border:        none;
+  cursor:        pointer;
+  font-family:   var(--font-body);
+  font-size:     13px;
+  font-weight:   500;
+  color:         var(--muted);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition:    all var(--transition);
+  white-space:   nowrap;
+  flex-shrink:   0;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (min-width: 768px) { .tab-button { padding: 12px 24px; font-size: 14px; } }
+.tab-button:hover  { color: var(--text); }
+.tab-button.active { color: var(--text); border-bottom-color: var(--gold); font-weight: 600; }
+
+.tab-badge {
+  background:    var(--bg2);
+  color:         var(--muted);
+  font-size:     10px;
+  font-weight:   600;
+  padding:       1px 6px;
+  border-radius: 20px;
+  border:        1px solid var(--border);
+  margin-left:   5px;
+}
+
+[data-theme="dark"] .tabs-container {
+  border-color: var(--border);
+}
+
+[data-theme="dark"] .tab-button.active {
+  color:              var(--text);
+  border-bottom-color:var(--gold);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   FILTER CHIPS — horizontal scroll on mobile
+══════════════════════════════════════════════════════════════ */
+
+.filter-chips {
+  display:     flex;
+  gap:         8px;
+  overflow-x:  auto;
+  padding-bottom: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filter-chips::-webkit-scrollbar { display: none; }
+
+.filter-chip {
+  display:       inline-flex;
+  align-items:   center;
+  padding:       8px 16px;
+  border-radius: 20px;
+  border:        1.5px solid var(--border);
+  background:    var(--surface);
+  color:         var(--muted);
+  font-size:     13px;
+  font-weight:   500;
+  white-space:   nowrap;
+  cursor:        pointer;
+  transition:    all var(--transition);
+  font-family:   var(--font-body);
+  flex-shrink:   0;
+  min-height:    40px;  /* touch friendly */
+}
+.filter-chip:hover { border-color: var(--gold); color: var(--text); }
+.filter-chip.active {
+  background:   var(--slate);
+  border-color: var(--slate);
+  color:        white;
+}
+[data-theme="dark"] .filter-chip.active {
+  background:   var(--gold);
+  border-color: var(--gold);
+  color:        white;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   BREADCRUMB
+══════════════════════════════════════════════════════════════ */
+
+.breadcrumb {
+  display:     flex;
+  align-items: center;
+  gap:         6px;
+  font-size:   13px;
+  color:       var(--muted);
+  overflow-x:  auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  padding:     12px var(--px);
+}
+.breadcrumb::-webkit-scrollbar { display: none; }
+.breadcrumb .sep     { color: var(--border2); }
+.breadcrumb .current { color: var(--text); font-weight: 500; }
+
+/* ══════════════════════════════════════════════════════════════
+   SKELETON LOADER
+══════════════════════════════════════════════════════════════ */
+
+.skeleton {
+  background:      linear-gradient(90deg, var(--border) 25%, var(--bg2) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation:       shimmer 1.5s infinite;
+  border-radius:   4px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   DARK THEME TOGGLE BUTTON
+══════════════════════════════════════════════════════════════ */
+
+.theme-toggle {
+  width:           40px;
+  height:          40px;
+  border-radius:   50%;
+  background:      var(--bg2);
+  border:          1px solid var(--border);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  font-size:       17px;
+  cursor:          pointer;
+  transition:      all var(--transition);
+  flex-shrink:     0;
+  -webkit-tap-highlight-color: transparent;
+}
+.theme-toggle:hover {
+  background:  var(--border);
+  transform:   rotate(20deg);
+}
+[data-theme="dark"] .theme-toggle {
+  background:    var(--surface2);
+  border-color:  var(--border2);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LIKE BUTTON
+══════════════════════════════════════════════════════════════ */
+
+.like-btn {
+  width:         40px;
+  height:        40px;
+  background:    var(--surface);
+  border:        1px solid var(--border);
+  border-radius: 50%;
+  font-size:     18px;
+  cursor:        pointer;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  transition:    all var(--transition);
+  flex-shrink:   0;
+}
+.like-btn:hover { border-color: var(--gold); transform: scale(1.1); }
+
+/* Like button overlaid on grid card image */
+.like-btn-overlay {
+  position: absolute;
+  top:      12px;
+  right:    12px;
+  border:   none;
+  box-shadow: var(--shadow-sm);
+  background: rgba(255,255,255,.92);
+}
+[data-theme="dark"] .like-btn-overlay {
+  background: rgba(26,31,46,.85);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   LISTINGS LIST VIEW COMPONENTS
+══════════════════════════════════════════════════════════════ */
+
+.listings-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            16px;
+}
+
+.prop-list-card {
+  display:       flex;
+  flex-direction: column;   /* stacked on mobile */
+  background:    var(--surface);
+  border:        1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow:      hidden;
+  cursor:        pointer;
+  transition:    all var(--transition);
+}
+.prop-list-card:hover {
+  box-shadow:   var(--shadow-lg);
+  border-color: var(--border2);
+}
+
+/* On tablet+: horizontal layout */
+@media (min-width: 640px) {
+  .prop-list-card { flex-direction: row; }
+}
+
+.prop-list-img {
+  width:        100%;
+  height:       200px;
+  flex-shrink:  0;
+  overflow:     hidden;
+  background:   var(--bg2);
+}
+/* Fixed width image on desktop */
+@media (min-width: 640px) {
+  .prop-list-img {
+    width:  220px;
+    height: auto;
+    min-height: 160px;
+  }
+}
+@media (min-width: 1024px) {
+  .prop-list-img { width: 260px; }
+}
+
+.prop-list-img img {
+  width:      100%;
+  height:     100%;
+  object-fit: cover;
+  display:    block;
+  transition: transform .5s ease;
+}
+.prop-list-card:hover .prop-list-img img { transform: scale(1.03); }
+
+.prop-list-body {
+  flex:    1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap:     4px;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  .prop-list-body { padding: 20px; }
+}
+
+/* Actions column — row on mobile, column on desktop */
+.prop-list-actions {
+  display:         flex;
+  flex-direction:  row;
+  align-items:     center;
+  justify-content: flex-end;
+  gap:             10px;
+  padding:         12px 16px;
+  border-top:      1px solid var(--border);
+}
+@media (min-width: 640px) {
+  .prop-list-actions {
+    flex-direction: column;
+    align-items:    center;
+    justify-content:center;
+    padding:        20px 16px;
+    border-top:     none;
+    border-left:    1px solid var(--border);
+    min-width:      80px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PAGINATION
+══════════════════════════════════════════════════════════════ */
+
+.pagination {
+  display:         flex;
+  justify-content: center;
+  align-items:     center;
+  gap:             8px;
+  margin-top:      40px;
+  flex-wrap:       wrap;
+}
+
+.page-numbers {
+  display: flex;
+  gap:     4px;
+}
+
+.page-btn {
+  width:         44px;
+  height:        44px;
+  border:        1.5px solid var(--border);
+  background:    var(--surface);
+  color:         var(--text);
+  border-radius: var(--radius-sm);
+  cursor:        pointer;
+  font-size:     13px;
+  font-weight:   600;
+  transition:    all var(--transition);
+  font-family:   var(--font-body);
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+}
+.page-btn:hover { border-color: var(--gold); color: var(--gold); }
+.page-btn.active {
+  background:   var(--gold);
+  border-color: var(--gold);
+  color:        white;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   AVATAR
+══════════════════════════════════════════════════════════════ */
+
+.avatar    { border-radius: 50%; object-fit: cover; border: 2px solid var(--border); display: block; }
+.avatar-xl { width: 96px;  height: 96px;  border: 3px solid var(--gold); }
+.avatar-lg { width: 80px;  height: 80px; }
+.avatar-md { width: 48px;  height: 48px; }
+.avatar-sm { width: 36px;  height: 36px; }
+.avatar-xs { width: 28px;  height: 28px; }
+
+.avatar-verified {
+  position:      absolute;
+  bottom: 0; right: 0;
+  width:         22px;
+  height:        22px;
+  background:    #2563eb;
+  border-radius: 50%;
+  border:        2px solid var(--surface);
+  display:       flex;
+  align-items:   center;
+  justify-content:center;
+  font-size:     11px;
+  color:         white;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   EMPTY STATE
+══════════════════════════════════════════════════════════════ */
+
+.empty-state {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  justify-content:center;
+  padding:        48px 24px;
+  text-align:     center;
+  min-height:     260px;
+}
+.empty-icon    { font-size: clamp(40px, 8vw, 64px); margin-bottom: 14px; }
+.empty-title   { font-family: var(--font-display); font-size: clamp(16px,2.5vw,20px); font-weight: 700; color: var(--text); margin-bottom: 8px; }
+.empty-message { font-size: 14px; color: var(--muted); margin-bottom: 24px; max-width: 360px; }

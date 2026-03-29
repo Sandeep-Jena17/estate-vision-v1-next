@@ -1,0 +1,99 @@
+/* EstateVision — spacing, text helpers, typography classes, scrollbar, print media */
+
+/* ══════════════════════════════════════════════════════════════
+   TYPOGRAPHY — mobile-first fluid sizing with clamp()
+══════════════════════════════════════════════════════════════ */
+
+.t-display    { font-family: var(--font-display); }
+.t-xs         { font-size: clamp(10px, 1.5vw, 11px); }
+.t-sm         { font-size: clamp(12px, 1.8vw, 13px); }
+.t-base       { font-size: clamp(14px, 2vw, 15px); }
+.t-lg         { font-size: clamp(16px, 2.2vw, 18px); }
+.t-xl         { font-size: clamp(18px, 2.5vw, 22px); }
+.t-2xl        { font-size: clamp(22px, 3vw, 28px); }
+.t-3xl        { font-size: clamp(26px, 4vw, 36px); }
+.t-4xl        { font-size: clamp(30px, 5vw, 48px); }
+.t-hero       { font-size: clamp(32px, 6vw, 64px); }
+
+.t-muted      { color: var(--muted); }
+.t-gold       { color: var(--gold); }
+.t-white      { color: #ffffff; }
+.t-slate      { color: var(--slate); }
+
+.fw-3         { font-weight: 300; }
+.fw-4         { font-weight: 400; }
+.fw-5         { font-weight: 500; }
+.fw-6         { font-weight: 600; }
+.fw-7         { font-weight: 700; }
+
+.ls-wide      { letter-spacing: 0.08em; }
+.ls-wider     { letter-spacing: 0.12em; }
+.uppercase    { text-transform: uppercase; }
+
+/* ══════════════════════════════════════════════════════════════
+   SPACING UTILITIES
+══════════════════════════════════════════════════════════════ */
+
+.mt-4  { margin-top: 4px; }
+.mt-8  { margin-top: 8px; }
+.mt-12 { margin-top: 12px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.mt-32 { margin-top: 32px; }
+.mt-48 { margin-top: 48px; }
+
+.mb-4  { margin-bottom: 4px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+
+.p-16  { padding: 16px; }
+.p-20  { padding: 20px; }
+.p-24  { padding: 24px; }
+
+.section-py {
+  padding-top:    48px;
+  padding-bottom: 48px;
+}
+@media (min-width: 768px) {
+  .section-py { padding-top: 72px; padding-bottom: 72px; }
+}
+@media (min-width: 1024px) {
+  .section-py { padding-top: 96px; padding-bottom: 96px; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   TEXT HELPERS
+══════════════════════════════════════════════════════════════ */
+
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+.truncate     { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sr-only      { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+.w-full       { width: 100%; }
+.h-full       { height: 100%; }
+.overflow-hidden { overflow: hidden; }
+.relative     { position: relative; }
+.absolute     { position: absolute; }
+
+/* ══════════════════════════════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════════════════════════════ */
+
+@media (min-width: 768px) {
+  ::-webkit-scrollbar       { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PRINT
+══════════════════════════════════════════════════════════════ */
+
+@media print {
+  .nav, .toast, .modal-overlay, .footer { display: none; }
+  main { margin-top: 0; }
+}

@@ -1,0 +1,78 @@
+/* EstateVision — .grid-2/3/4, .layout-sidebar, .layout-detail, flex helpers, gap helpers */
+
+/* ══════════════════════════════════════════════════════════════
+   LAYOUT — MOBILE FIRST GRIDS
+══════════════════════════════════════════════════════════════ */
+
+.flex           { display: flex; }
+.flex-col       { display: flex; flex-direction: column; }
+.items-center   { align-items: center; }
+.items-start    { align-items: flex-start; }
+.justify-center { justify-content: center; }
+.justify-between{ justify-content: space-between; }
+.flex-wrap      { flex-wrap: wrap; }
+.flex-1         { flex: 1; }
+.flex-shrink-0  { flex-shrink: 0; }
+
+.gap-4          { gap: 4px; }
+.gap-8          { gap: 8px; }
+.gap-12         { gap: 12px; }
+.gap-16         { gap: 16px; }
+.gap-24         { gap: 24px; }
+.gap-32         { gap: 32px; }
+
+/* Grid — all start 1 column on mobile */
+.grid-2 {
+  display:               grid;
+  grid-template-columns: 1fr;  /* mobile: 1 col */
+  gap:                   16px;
+}
+@media (min-width: 640px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; gap: 20px; }
+}
+
+.grid-3 {
+  display:               grid;
+  grid-template-columns: 1fr;  /* mobile: 1 col */
+  gap:                   16px;
+}
+@media (min-width: 480px) {
+  .grid-3 { grid-template-columns: 1fr 1fr; gap: 16px; }
+}
+@media (min-width: 1024px) {
+  .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+}
+
+.grid-4 {
+  display:               grid;
+  grid-template-columns: 1fr 1fr;  /* mobile: 2 cols */
+  gap:                   12px;
+}
+@media (min-width: 640px) {
+  .grid-4 { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+@media (min-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 20px; }
+}
+
+/* Sidebar layout — stacks on mobile */
+.layout-sidebar {
+  display:               grid;
+  grid-template-columns: 1fr;
+  gap:                   20px;
+  align-items:           start;
+}
+@media (min-width: 1024px) {
+  .layout-sidebar { grid-template-columns: 260px 1fr; gap: 28px; }
+}
+
+/* Detail layout — content + sticky panel */
+.layout-detail {
+  display:               grid;
+  grid-template-columns: 1fr;
+  gap:                   24px;
+  align-items:           start;
+}
+@media (min-width: 1024px) {
+  .layout-detail { grid-template-columns: 1fr 360px; gap: 28px; }
+}

@@ -1,0 +1,99 @@
+/* EstateVision — listings page styles */
+
+/* ══════════════════════════════════════════════════════════════
+   LISTINGS PAGE
+══════════════════════════════════════════════════════════════ */
+
+/* Page wrapper */
+.listings-page {
+  min-height: calc(100vh - var(--nav-h));
+  background: var(--bg);
+}
+
+.listings-container {
+  padding-top:    24px;
+  padding-bottom: 48px;
+}
+@media (min-width: 768px) {
+  .listings-container { padding-top: 40px; }
+}
+
+/* ── PAGE HEADER ─────────────────────────────────────────── */
+.listings-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     flex-start;
+  margin-bottom:   20px;
+  flex-wrap:       wrap;
+  gap:             16px;
+}
+
+.listings-title {
+  font-size:   clamp(22px, 4vw, 32px);
+  font-weight: 700;
+  color:       var(--text);
+}
+
+/* View toggle — hide on mobile, show on tablet+ */
+.view-toggle {
+  display: none;   /* hidden on mobile — grid only */
+}
+@media (min-width: 640px) {
+  .view-toggle {
+    display:       flex;
+    gap:           4px;
+    background:    var(--bg2);
+    padding:       4px;
+    border-radius: var(--radius-sm);
+    border:        1px solid var(--border);
+  }
+}
+
+/* View button */
+.view-btn {
+  padding:       6px 12px;
+  border-radius: 4px;
+  border:        none;
+  background:    transparent;
+  color:         var(--muted);
+  font-size:     13px;
+  cursor:        pointer;
+  transition:    all var(--transition);
+  font-family:   var(--font-body);
+}
+.view-btn.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-sm); }
+
+/* Results header */
+.results-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  margin-bottom:   20px;
+  flex-wrap:       wrap;
+  gap:             12px;
+}
+.results-count {
+  font-family: var(--font-display);
+  font-size:   clamp(18px, 2.5vw, 22px);
+  font-weight: 700;
+  color:       var(--text);
+}
+
+/* Sticky search bar */
+.search-sticky-bar {
+  position:    sticky;
+  top:         var(--nav-h);
+  z-index:     500;
+  background:  var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding:     12px 0;
+}
+
+/* Mobile filter toggle */
+.filter-toggle-mobile {
+  display: flex;
+  width:   100%;
+}
+@media (min-width: 1024px) {
+  .filter-toggle-mobile { display: none; }
+}
