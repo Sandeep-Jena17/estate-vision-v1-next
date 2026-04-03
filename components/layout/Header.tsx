@@ -7,16 +7,23 @@ import { User, UserRole } from '@/types/auth.types';
 
 /* ── Theme hook ──────────────────────────────────────────── */
 function useTheme() {
-  const [isDark, setIsDark] = useState(() => {
-    const saved = localStorage.getItem('ev-theme');
-    if (saved) return saved === 'dark';
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
-  });
+  const [isDark,   setIsDark]   = useState(false);
+  const [mounted,  setMounted]  = useState(false);
+
   useEffect(() => {
+    const saved = localStorage.getItem('ev-theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    setIsDark(saved ? saved === 'dark' : prefersDark);
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!mounted) return;
     document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
     localStorage.setItem('ev-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
-  return { isDark, toggle: () => setIsDark(d => !d) };
+  }, [isDark, mounted]);
+
+  return { isDark, mounted, toggle: () => setIsDark(d => !d) };
 }
 
 /* ── Nav dropdown menu items per role ────────────────────── */
@@ -89,7 +96,7 @@ const NavDropdown: React.FC<DropdownProps> = ({ user, onNavigate, onLogout, onCl
 export const Header: React.FC = () => {
   const router    = useRouter();
   const pathname  = usePathname();
-  const { isDark, toggle }                    = useTheme();
+  const { isDark, mounted, toggle }           = useTheme();
   const { user, isLoggedIn, logout }          = useAuth();
   const [isScrolled, setIsScrolled]           = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -172,7 +179,7 @@ export const Header: React.FC = () => {
               title={isDark ? 'Switch to light' : 'Switch to dark'}
               aria-label="Toggle theme"
             >
-              {isDark ? '☀️' : '🌙'}
+              {mounted ? (isDark ? '☀️' : '🌙') : '🌙'}
             </button>
 
             {isLoggedIn && user ? (
@@ -229,7 +236,7 @@ export const Header: React.FC = () => {
           {/* Mobile: theme toggle + hamburger */}
           <div className="nav-mobile-right">
             <button className="theme-toggle" onClick={toggle} aria-label="Toggle theme">
-              {isDark ? '☀️' : '🌙'}
+              {mounted ? (isDark ? '☀️' : '🌙') : '🌙'}
             </button>
             {isLoggedIn && user && (
               <img

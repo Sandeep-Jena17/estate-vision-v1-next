@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useMemo, Suspense } from 'react';
 import { MOCK_PROPERTIES } from '@/services/mockData';
-import '@/styles/pages/listings.css';
 
 function SearchContent() {
   const [searchQ, setSearchQ] = useState('');

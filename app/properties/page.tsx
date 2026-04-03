@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { MOCK_PROPERTIES } from '@/services/mockData';
-import '@/styles/pages/listings.css';
 
 export default function PropertiesPage() {
   const router = useRouter();

@@ -1,0 +1,93 @@
+/* EstateVision — user dashboard styles */
+
+/* ══════════════════════════════════════════════════════════════
+   USER DASHBOARD PAGE
+══════════════════════════════════════════════════════════════ */
+
+/* Profile banner */
+.profile-banner {
+  background: linear-gradient(135deg, var(--slate) 0%, #1a2035 100%);
+  padding:    32px var(--px) 0;
+  position:   relative;
+  overflow:   hidden;
+}
+@media (min-width: 768px) { .profile-banner { padding: 40px var(--px) 0; } }
+
+.profile-banner::after {
+  content:       '';
+  position:      absolute;
+  top: -60px; right: -60px;
+  width:         280px; height: 280px;
+  border-radius: 50%;
+  border:        50px solid rgba(184,134,11,.08);
+  pointer-events:none;
+}
+
+.profile-info {
+  display:     flex;
+  align-items: flex-start;
+  gap:         16px;
+  padding-bottom: 24px;
+  flex-wrap:   wrap;
+}
+@media (min-width: 640px) { .profile-info { flex-wrap: nowrap; } }
+
+.profile-avatar-wrap { position: relative; flex-shrink: 0; }
+
+/* Stats row inside banner */
+.profile-stats {
+  display:     grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top:  1px solid rgba(255,255,255,.1);
+}
+@media (min-width: 480px) {
+  .profile-stats { grid-template-columns: repeat(4, 1fr); }
+}
+.profile-stat {
+  padding:    16px var(--px);
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,.07);
+}
+.profile-stat:last-child { border-right: none; }
+.profile-stat-value { font-family: var(--font-display); font-size: clamp(18px,2.5vw,22px); font-weight: 700; color: white; }
+.profile-stat-label { font-size: 10px; color: rgba(255,255,255,.45); margin-top: 2px; }
+
+/* Notification toggle row */
+.notif-row {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  gap:             16px;
+  padding:         12px 0;
+  border-bottom:   1px solid var(--border);
+}
+.notif-row:last-child { border-bottom: none; }
+
+/* Toggle switch */
+.toggle {
+  width: 44px; height: 24px;
+  border-radius: 12px;
+  background:    var(--border);
+  cursor:        pointer;
+  position:      relative;
+  transition:    background var(--transition);
+  flex-shrink:   0;
+  border:        none;
+}
+.toggle.on { background: var(--gold); }
+.toggle-thumb {
+  position:      absolute;
+  top:           3px;
+  left:          3px;
+  width:         18px;
+  height:        18px;
+  border-radius: 50%;
+  background:    white;
+  transition:    left var(--transition);
+  box-shadow:    0 1px 4px rgba(0,0,0,.2);
+}
+.toggle.on .toggle-thumb { left: 23px; }
+
+[data-theme="dark"] .profile-banner {
+  background: linear-gradient(135deg, #0a0e16 0%, #0f1420 100%);
+}

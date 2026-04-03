@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useMemo, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
-import '@/styles/pages/listings.css';
 import { MOCK_PROPERTIES } from '@/services/mockData';
 import { Property } from '@/types';
 import { formatPrice } from '@/utils/formatters';

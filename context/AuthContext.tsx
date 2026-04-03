@@ -24,23 +24,36 @@ const userPool = new CognitoUserPool({
   ClientId:   process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID!,
 });
 
+/* ─── Derive role from Cognito group membership ──────────── */
+function groupsToRole(groups: string[]): UserRole {
+  if (groups.includes('admin')) return 'admin';
+  if (groups.includes('agent')) return 'agent';
+  return 'buyer';
+}
+
 /* ─── Build User object from Cognito attributes ──────────── */
 function buildUser(
   sub: string,
-  attrs: { getName(): string; getValue(): string }[]
+  attrs: { getName(): string; getValue(): string }[],
+  groups?: string[]
 ): User {
   const get = (name: string) =>
     attrs.find(a => a.getName() === name)?.getValue() ?? '';
+  const role: UserRole =
+    groups && groups.length > 0
+      ? groupsToRole(groups)
+      : (get('custom:role') || 'buyer') as UserRole;
   return {
-    id:         sub,
-    cognitoId:  sub,
-    name:       get('name'),
-    email:      get('email'),
-    phone:      get('phone_number') || undefined,
-    role:       (get('custom:role') || 'buyer') as UserRole,
-    agencyName: get('custom:agencyName') || undefined,
-    verified:   true,
-    createdAt:  new Date().toISOString(),
+    id:            sub,
+    cognitoId:     sub,
+    name:          get('name'),
+    email:         get('email'),
+    phone:         get('phone_number') || undefined,
+    role,
+    agencyName:    get('custom:agencyName') || undefined,
+    verified:      true,
+    createdAt:     new Date().toISOString(),
+    cognitoGroups: groups,
   };
 }
 
@@ -73,6 +86,10 @@ interface AuthContextType {
 
   login: (
     email: string, password: string
+  ) => Promise<{ success: boolean; role?: UserRole; needsNewPassword?: boolean; error?: string }>;
+
+  completeNewPassword: (
+    password: string
   ) => Promise<{ success: boolean; role?: UserRole; error?: string }>;
 
   register: (data: {
@@ -103,6 +120,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const pendingPasswordRef = useRef<string | null>(null);
   const pendingUsernameRef = useRef<string | null>(null);
+  const pendingCognitoUserRef = useRef<CognitoUser | null>(null);
+  const pendingUserAttributesRef = useRef<CognitoUserAttribute[] | null>(null);
 
   /* ── Restore session on mount ── */
   useEffect(() => {
@@ -114,7 +133,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsLoading(false);
         if (attrErr || !attrs) return;
         const sub = session.getIdToken().payload.sub as string;
-        setUser(buildUser(sub, attrs));
+        const groups = session.getAccessToken().payload['cognito:groups'] as string[] | undefined;
+        setUser(buildUser(sub, attrs, groups));
       });
     });
   }, []);
@@ -122,9 +142,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   /* ── LOGIN ── */
   const login = useCallback(async (
     email: string, password: string
-  ): Promise<{ success: boolean; role?: UserRole; error?: string }> => {
+  ): Promise<{ success: boolean; role?: UserRole; needsNewPassword?: boolean; error?: string }> => {
     setIsLoading(true); setError(null);
-    return new Promise(resolve => {
+    return new Promise<{ success: boolean; role?: UserRole; needsNewPassword?: boolean; error?: string }>(resolve => {
       const authDetails = new AuthenticationDetails({ Username: email, Password: password });
       const cognitoUser = new CognitoUser({ Username: email, Pool: userPool });
       cognitoUser.authenticateUser(authDetails, {
@@ -136,7 +156,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               setError(msg); resolve({ success: false, error: msg }); return;
             }
             const sub = session.getIdToken().payload.sub as string;
-            const u = buildUser(sub, attrs);
+            const groups = session.getAccessToken().payload['cognito:groups'] as string[] | undefined;
+            const u = buildUser(sub, attrs, groups);
             setUser(u); resolve({ success: true, role: u.role });
           });
         },
@@ -145,10 +166,56 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const msg = friendlyError(err.code ?? err.name ?? '');
           setError(msg); resolve({ success: false, error: msg });
         },
-        newPasswordRequired: () => {
+        newPasswordRequired: (userAttributes: CognitoUserAttribute[], requiredAttributes: string[]) => {
           setIsLoading(false);
+          pendingCognitoUserRef.current = cognitoUser;
+          pendingUserAttributesRef.current = userAttributes || [];
           const msg = 'Please reset your password to continue.';
-          setError(msg); resolve({ success: false, error: msg });
+          setError(msg);
+          resolve({ success: false, needsNewPassword: true, error: msg });
+          return;
+        },
+      });
+    });
+  }, []);
+
+  const completeNewPassword = useCallback(async (
+    newPassword: string
+  ): Promise<{ success: boolean; role?: UserRole; error?: string }> => {
+    setIsLoading(true); setError(null);
+    const cognitoUser = pendingCognitoUserRef.current;
+    const userAttributes = pendingUserAttributesRef.current || [];
+    if (!cognitoUser) {
+      setIsLoading(false);
+      const err = 'No password reset session found.';
+      setError(err);
+      return { success: false, error: err };
+    }
+
+    return new Promise(resolve => {
+      (cognitoUser as any).completeNewPassword(newPassword, userAttributes, {
+        onSuccess: (session: CognitoUserSession) => {
+          cognitoUser.getUserAttributes((attrErr, attrs) => {
+            setIsLoading(false);
+            pendingCognitoUserRef.current = null;
+            pendingUserAttributesRef.current = null;
+            if (attrErr || !attrs) {
+              const role = 'buyer' as UserRole;
+              resolve({ success: true, role });
+              return;
+            }
+            const sub = session.getIdToken().payload.sub as string;
+            const groups = session.getAccessToken().payload['cognito:groups'] as string[] | undefined;
+            const u = buildUser(sub, attrs, groups);
+            setUser(u);
+            resolve({ success: true, role: u.role });
+          });
+        },
+        onFailure: (err: { code?: string; name?: string }) => {
+          setIsLoading(false);
+          const msg = friendlyError(err.code ?? err.name ?? '');
+          setError(msg);
+          resolve({ success: false, error: msg });
         },
       });
     });
@@ -213,7 +280,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
               pendingPasswordRef.current = null; pendingUsernameRef.current = null; setIsLoading(false);
               if (attrErr || !attrs) { resolve({ success: true, role: 'buyer' }); return; }
               const sub = session.getIdToken().payload.sub as string;
-              const u = buildUser(sub, attrs);
+              const groups = session.getAccessToken().payload['cognito:groups'] as string[] | undefined;
+              const u = buildUser(sub, attrs, groups);
               setUser(u); resolve({ success: true, role: u.role });
             });
           },
@@ -311,7 +379,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isAdmin: user?.role === 'admin',
     isAgent: user?.role === 'agent' || user?.role === 'admin',
     isBuyer: !!user,
-    login, register, confirmOTP, forgotPassword, resetPassword,
+    login, completeNewPassword, register, confirmOTP, forgotPassword, resetPassword,
     resendOTP, logout, getToken, clearError,
   };
 
